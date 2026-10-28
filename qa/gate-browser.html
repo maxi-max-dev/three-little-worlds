@@ -3,7 +3,7 @@ import {protectPanel} from '../borrow-fire/input-gate.js';
 const root=document.querySelector('#panel'),a=document.querySelector('#a'),b=document.querySelector('#b'),c=document.querySelector('#confirm'),out=document.querySelector('#result');
 let selected=null,count=0,choice=null,results=[];const panel=protectPanel(root);const wait=ms=>new Promise(r=>setTimeout(r,ms));
 const open=(delay=1200)=>{selected=null;c.dataset.unavailable='true';panel.open([[a,()=>{selected='A';c.dataset.unavailable='false'}],[b,()=>{selected='B';c.dataset.unavailable='false'}],[c,()=>{count++;choice=selected;panel.close()}]],delay)};
-const pointer=(type,id,target=a)=>target.dispatchEvent(new PointerEvent(type,{bubbles:true,pointerId:id,pointerType:'touch',clientX:20,clientY:20}));
+const pointer=(type,id,target=a)=>{const r=target.getBoundingClientRect();target.dispatchEvent(new PointerEvent(type,{bubbles:true,pointerId:id,pointerType:'touch',clientX:r.x+r.width/2,clientY:r.y+r.height/2}));};
 const tap=t=>{pointer('pointerdown',1,t);pointer('pointerup',1,t);t.click()};
 const check=(name,ok)=>{results.push({name,pass:!!ok});out.textContent=JSON.stringify(results,null,2);if(!ok)throw Error(name)};
 setInterval(panel.refresh,16);

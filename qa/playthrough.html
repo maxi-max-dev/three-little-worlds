@@ -1,0 +1,37 @@
+<!doctype html><meta charset="utf-8"><title>借火 · 浏览器输入回归</title><style>body{margin:0;background:#172532;color:#f6edcd;font:14px sans-serif;display:flex;gap:18px}iframe{width:390px;height:844px;border:0;flex-shrink:0}pre{white-space:pre-wrap;max-width:620px}button{padding:12px}</style><iframe id="game" title="390×844 实际游戏"></iframe><div><h1>浏览器合成输入完整流程</h1><p>使用真实游戏、真实时间与UI事件。未改血量、弹药、敌人或关卡；非实体手机、非真人试玩。</p><button id="stop">暂停驾驶器</button><pre id="result">启动中</pre></div><script type="module">
+const query=new URLSearchParams(location.search),build=query.get('build')||'blast',story=query.get('story')||'leave';
+const frame=document.querySelector('iframe');frame.src='../borrow-fire/?qa=1';const out=document.querySelector('#result');
+let running=true,held=false,moving=false,logged='',log=[],lastFrame=0,chosen=false,holdUntil=0,checkedHold=false,finished=false;
+document.querySelector('#stop').onclick=()=>{running=!running;document.querySelector('#stop').textContent=running?'暂停驾驶器':'继续驾驶器'};
+function event(win,el,type,id=7,x=0,y=0){el.dispatchEvent(new win.PointerEvent(type,{bubbles:true,pointerId:id,pointerType:'touch',clientX:x,clientY:y}));}
+function tap(win,el){if(!el||el.disabled)return;const r=el.getBoundingClientRect(),x=r.x+r.width/2,y=r.y+r.height/2;event(win,el,'pointerdown',9,x,y);event(win,el,'pointerup',9,x,y);el.click();}
+function record(value){log.push(value);out.textContent=JSON.stringify(log,null,2);}
+setInterval(()=>{
+ if(!running||finished)return;const win=frame.contentWindow,doc=win.document,api=win.borrowFireQA;if(!api)return;
+ const s=api.snapshot(),key=s.mode+':'+s.node+':'+s.story.join(',')+':'+s.areaUpgraded;
+ if(key!==logged){record({mode:s.mode,node:s.node,hp:s.hp,time:+s.totalTime.toFixed(1),ember:s.ember,build:s.build,level:s.buildLevel,story:s.story});logged=key;chosen=false;}
+ if(s.mode==='intro'){
+  if(s.build!==build)tap(win,doc.querySelector(`[data-build="${build}"]`));else tap(win,doc.querySelector('#start'));return;
+ }
+ if(s.mode==='dead'||s.mode==='win'){finished=true;record({result:s.mode,visited:s.visited,perf:api.performance(),absorbed:s.absorbed,releases:s.releaseCount,errors:api.errors(),complete:true});out.dataset.done=s.mode;return;}
+ if(s.mode==='clear'){
+  if(!checkedHold){if(!holdUntil)holdUntil=performance.now()+5100;if(performance.now()<holdUntil)return;record({heldFiveSeconds:doc.querySelector('[data-id]')?.disabled,preview:doc.querySelector('[aria-pressed="true"][data-id]')?.dataset.id||null});checkedHold=true;}
+  if(held){event(win,doc.querySelector('#fire'),'pointerup',7);held=false;}
+  if(moving){event(win,doc.querySelector('#joystick'),'pointerup',8);moving=false;}
+  const cards=[...doc.querySelectorAll('[data-id]')];const candidate=cards.find(e=>e.dataset.id===story&&!e.disabled)||cards.find(e=>e.dataset.id==='evolve')||cards.find(e=>e.dataset.id.endsWith('s'))||cards[0];
+  if(candidate&&!candidate.disabled&&!chosen){tap(win,candidate);chosen=true;return;}
+  const confirm=doc.querySelector('#confirmUpgrade');if(!confirm.disabled)tap(win,confirm);return;
+ }
+ if(doc.querySelector('#resume')&&!doc.querySelector('#overlay').hidden){tap(win,doc.querySelector('#resume'));return;}
+ if(s.mode!=='play')return;
+ const fire=doc.querySelector('#fire'),stick=doc.querySelector('#joystick');
+ let target={x:240+Math.sin(s.time*.5)*85,y:435};const charger=s.enemies.find(e=>e.kind==='charger'&&e.fire<.7&&e.fire>-.45);
+ if(charger)target={x:s.p.x+(s.p.x<240?90:-90),y:480};
+ const only=s.enemies.filter(e=>e.hp>0);if(only.length&&only.every(e=>e.kind==='charger'))target={x:only[0].x,y:only[0].y+45};
+ const dx=target.x-s.p.x,dy=target.y-s.p.y,len=Math.hypot(dx,dy),r=stick.getBoundingClientRect(),scale=Math.min(1,len/20);
+ const x=r.x+r.width/2+(len?dx/len:0)*r.width*.45*scale,y=r.y+r.height/2+(len?dy/len:0)*r.height*.45*scale;
+ if(!moving){event(win,stick,'pointerdown',8,x,y);moving=true;}else event(win,stick,'pointermove',8,x,y);
+ if(held&&(s.ammo>=(build==='blast'?6:3)||s.heat>.68)){event(win,fire,'pointerup',7);held=false;return;}
+ if(!held&&s.heat<.82){const r=fire.getBoundingClientRect();event(win,fire,'pointerdown',7,r.x+r.width/2,r.y+r.height/2);held=true;}
+},50);
+</script>

@@ -1,0 +1,3 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {simulate} from './simulate.mjs';
+for(const build of ['swarm','blast','arc'])for(const upgrade of ['evolve','cool'])test(`${build} nine rooms, no story required, ${upgrade}`,()=>{const r=simulate(build,'safe','leave',upgrade);assert.equal(r.mode,'win');assert.equal(r.visited.length,9);assert.ok(r.absorbed>0);});
+test('all risk configurations playable by blast, not a guarantee all strategies win',()=>{const r=simulate('blast','risk');assert.equal(r.mode,'win');assert.ok(r.visited.includes('b2r')&&r.visited.includes('c2r'));});
