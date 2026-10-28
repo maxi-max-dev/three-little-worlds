@@ -11,3 +11,4 @@ button:disabled{opacity:.48;cursor:default;transform:none}.choice[aria-pressed="
 .overlay.ending{background:#142631b8}.ending .card{background:#142631d9;padding:14px;border:1px solid #88e1c4}.ending h2{color:var(--gold)}
 /* Keep score above the bulkhead at the smallest desktop canvas scale. */
 .hud{inset:5px 10px auto}.hud small,#buildLabel{line-height:1.1}.hud strong{font-size:16px;margin-top:0}
+.choices[hidden]{display:none}

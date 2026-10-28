@@ -18,7 +18,7 @@ setInterval(()=>{
   if(!checkedHold){if(!holdUntil)holdUntil=performance.now()+5100;if(performance.now()<holdUntil)return;record({heldFiveSeconds:doc.querySelector('[data-id]')?.disabled,preview:doc.querySelector('[aria-pressed="true"][data-id]')?.dataset.id||null});checkedHold=true;}
   if(held){event(win,doc.querySelector('#fire'),'pointerup',7);held=false;}
   if(moving){event(win,doc.querySelector('#joystick'),'pointerup',8);moving=false;}
-  const cards=[...doc.querySelectorAll('[data-id]')];const candidate=cards.find(e=>e.dataset.id===story&&!e.disabled)||cards.find(e=>e.dataset.id==='evolve')||cards.find(e=>e.dataset.id.endsWith('s'))||cards[0];
+  const cards=[...doc.querySelectorAll('[data-id]')].filter(e=>e.getClientRects().length);const candidate=cards.find(e=>e.dataset.id===story&&!e.disabled)||cards.find(e=>e.dataset.id==='evolve')||cards.find(e=>e.dataset.id.endsWith('s'))||cards[0];
   if(candidate&&!candidate.disabled&&!chosen){tap(win,candidate);chosen=true;return;}
   const confirm=doc.querySelector('#confirmUpgrade');if(!confirm.disabled)tap(win,confirm);return;
  }
