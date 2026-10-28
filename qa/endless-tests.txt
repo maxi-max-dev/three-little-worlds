@@ -1,0 +1,279 @@
+
+> test
+> node --test tests/*.test.js borrow-fire/tests/*.mjs qa/model-playthrough.test.mjs
+
+TAP version 13
+# Subtest: endless is separate; starts with fresh input and never clears a room
+ok 1 - endless is separate; starts with fresh input and never clears a room
+  ---
+  duration_ms: 1.511583
+  type: 'test'
+  ...
+# Subtest: pressure increases spawn density and combat speed, with finite entity limits
+ok 2 - pressure increases spawn density and combat speed, with finite entity limits
+  ---
+  duration_ms: 0.169875
+  type: 'test'
+  ...
+# Subtest: boss announces before spawning, only one boss, resumes schedule after death
+ok 3 - boss announces before spawning, only one boss, resumes schedule after death
+  ---
+  duration_ms: 1.390125
+  type: 'test'
+  ...
+# Subtest: terrain has non-solid warning, cancels if a body enters, expires without trapping
+ok 4 - terrain has non-solid warning, cancels if a body enters, expires without trapping
+  ---
+  duration_ms: 2.480083
+  type: 'test'
+  ...
+# Subtest: active cover blocks, breaks exactly once, enemy bullets and all builds can destroy
+ok 5 - active cover blocks, breaks exactly once, enemy bullets and all builds can destroy
+  ---
+  duration_ms: 0.995167
+  type: 'test'
+  ...
+# Subtest: kills grant evolution in combat; terminal state freezes director and restart resets
+ok 6 - kills grant evolution in combat; terminal state freezes director and restart resets
+  ---
+  duration_ms: 0.6805
+  type: 'test'
+  ...
+# Subtest: standing still with regular releases cannot remain safe indefinitely
+ok 7 - standing still with regular releases cannot remain safe indefinitely
+  ---
+  duration_ms: 137.508333
+  type: 'test'
+  ...
+# Subtest: a surviving boss does not freeze enemy density growth
+ok 8 - a surviving boss does not freeze enemy density growth
+  ---
+  duration_ms: 3.55675
+  type: 'test'
+  ...
+# Subtest: twelve configurations form exactly nine nodes on all eight routes
+ok 9 - twelve configurations form exactly nine nodes on all eight routes
+  ---
+  duration_ms: 1.883083
+  type: 'test'
+  ...
+# Subtest: new room remains frozen until fresh input; then first absorb within ten seconds
+ok 10 - new room remains frozen until fresh input; then first absorb within ten seconds
+  ---
+  duration_ms: 2.4615
+  type: 'test'
+  ...
+# Subtest: clear pauses time, clears heat/danger and converts bounded ember exactly once
+ok 11 - clear pauses time, clears heat/danger and converts bounded ember exactly once
+  ---
+  duration_ms: 0.178625
+  type: 'test'
+  ...
+# Subtest: story help and self have actual costs and benefits, unaffordable choice rejects
+ok 12 - story help and self have actual costs and benefits, unaffordable choice rejects
+  ---
+  duration_ms: 0.418667
+  type: 'test'
+  ...
+# Subtest: no useless heal at full health; route locks and no repeat rewards
+ok 13 - no useless heal at full health; route locks and no repeat rewards
+  ---
+  duration_ms: 0.439958
+  type: 'test'
+  ...
+# Subtest: walls prevent walking through, permit sliding, block bullets and lightning
+ok 14 - walls prevent walking through, permit sliding, block bullets and lightning
+  ---
+  duration_ms: 1.794875
+  type: 'test'
+  ...
+# Subtest: isolated charger has a visible recovery vulnerability usable without ammo
+ok 15 - isolated charger has a visible recovery vulnerability usable without ammo
+  ---
+  duration_ms: 0.266625
+  type: 'test'
+  ...
+# Subtest: boss phase transition clears danger, exposure deals more, death stops damage
+ok 16 - boss phase transition clears danger, exposure deals more, death stops damage
+  ---
+  duration_ms: 0.253375
+  type: 'test'
+  ...
+# Subtest: death and consecutive restarts reset all run state
+ok 17 - death and consecutive restarts reset all run state
+  ---
+  duration_ms: 1.191958
+  type: 'test'
+  ...
+# Subtest: pacing: an empty cleared group gets a new telegraph within half a second
+ok 18 - pacing: an empty cleared group gets a new telegraph within half a second
+  ---
+  duration_ms: 0.381416
+  type: 'test'
+  ...
+# Subtest: pacing: early rooms cap crowd pressure even when player does not kill
+ok 19 - pacing: early rooms cap crowd pressure even when player does not kill
+  ---
+  duration_ms: 5.176083
+  type: 'test'
+  ...
+# Subtest: A13 physical hold survives generation and five seconds; release never chooses
+ok 20 - A13 physical hold survives generation and five seconds; release never chooses
+  ---
+  duration_ms: 0.77625
+  type: 'test'
+  ...
+# Subtest: A14 locked starts and stale clicks cannot queue; drag out rejected
+ok 21 - A14 locked starts and stale clicks cannot queue; drag out rejected
+  ---
+  duration_ms: 0.124625
+  type: 'test'
+  ...
+# Subtest: A15 both fingers released, suspension starts fresh
+ok 22 - A15 both fingers released, suspension starts fresh
+  ---
+  duration_ms: 0.075875
+  type: 'test'
+  ...
+# Subtest: A16 repeat and long Enter cannot cross generations
+ok 23 - A16 repeat and long Enter cannot cross generations
+  ---
+  duration_ms: 0.120417
+  type: 'test'
+  ...
+# Subtest: A17 generation invalidates saved confirmation and up is once-only
+ok 24 - A17 generation invalidates saved confirmation and up is once-only
+  ---
+  duration_ms: 0.060917
+  type: 'test'
+  ...
+# Subtest: A18 minimum delays and unlimited reading
+ok 25 - A18 minimum delays and unlimited reading
+  ---
+  duration_ms: 0.060625
+  type: 'test'
+  ...
+# Subtest: swarm nine rooms, no story required, evolve
+ok 26 - swarm nine rooms, no story required, evolve
+  ---
+  duration_ms: 75.020583
+  type: 'test'
+  ...
+# Subtest: swarm nine rooms, no story required, cool
+ok 27 - swarm nine rooms, no story required, cool
+  ---
+  duration_ms: 63.716458
+  type: 'test'
+  ...
+# Subtest: blast nine rooms, no story required, evolve
+ok 28 - blast nine rooms, no story required, evolve
+  ---
+  duration_ms: 42.474833
+  type: 'test'
+  ...
+# Subtest: blast nine rooms, no story required, cool
+ok 29 - blast nine rooms, no story required, cool
+  ---
+  duration_ms: 28.740625
+  type: 'test'
+  ...
+# Subtest: arc nine rooms, no story required, evolve
+ok 30 - arc nine rooms, no story required, evolve
+  ---
+  duration_ms: 27.171291
+  type: 'test'
+  ...
+# Subtest: arc nine rooms, no story required, cool
+ok 31 - arc nine rooms, no story required, cool
+  ---
+  duration_ms: 16.970292
+  type: 'test'
+  ...
+# Subtest: all risk configurations playable by blast, not a guarantee all strategies win
+ok 32 - all risk configurations playable by blast, not a guarantee all strategies win
+  ---
+  duration_ms: 36.414292
+  type: 'test'
+  ...
+# Greedy legal full-game totals: 670, 806, 682, 734, 604
+# Subtest: loot: heavier gear changes movement, weight cap rejects an extra item, dropping preserves it
+ok 33 - loot: heavier gear changes movement, weight cap rejects an extra item, dropping preserves it
+  ---
+  duration_ms: 3.389459
+  type: 'test'
+  ...
+# Subtest: loot: feather opens only the light route; bell opens a permanent usable bridge
+ok 34 - loot: feather opens only the light route; bell opens a permanent usable bridge
+  ---
+  duration_ms: 0.398667
+  type: 'test'
+  ...
+# Subtest: loot: a complete near-shore round returns a score; timeout never banks cargo
+ok 35 - loot: a complete near-shore round returns a score; timeout never banks cargo
+  ---
+  duration_ms: 0.31325
+  type: 'test'
+  ...
+# Subtest: loot: lamp blocks ghost damage, life countdown is independent of protection
+ok 36 - loot: lamp blocks ghost damage, life countdown is independent of protection
+  ---
+  duration_ms: 0.074834
+  type: 'test'
+  ...
+# Subtest: grid: water changes downstream forest, orchard and hive production
+ok 37 - grid: water changes downstream forest, orchard and hive production
+  ---
+  duration_ms: 0.901
+  type: 'test'
+  ...
+# Subtest: grid: pollution removes downstream yield and replacement restores it
+ok 38 - grid: pollution removes downstream yield and replacement restores it
+  ---
+  duration_ms: 0.224042
+  type: 'test'
+  ...
+# Subtest: grid: legal whole games terminate after exactly twelve choices and can win without a fixed draw
+ok 39 - grid: legal whole games terminate after exactly twelve choices and can win without a fixed draw
+  ---
+  duration_ms: 10.2725
+  type: 'test'
+  ...
+# Subtest: grid: unavailable cards and level-four upgrades cannot consume a turn
+ok 40 - grid: unavailable cards and level-four upgrades cannot consume a turn
+  ---
+  duration_ms: 0.068416
+  type: 'test'
+  ...
+# Subtest: life: bridge can be built gradually and carried wood is not inherited
+ok 41 - life: bridge can be built gradually and carried wood is not inherited
+  ---
+  duration_ms: 0.563209
+  type: 'test'
+  ...
+# Subtest: life: lighthouse completion requires a tree planted by a prior generation
+ok 42 - life: lighthouse completion requires a tree planted by a prior generation
+  ---
+  duration_ms: 0.833417
+  type: 'test'
+  ...
+# Subtest: life: sixty-second expiry preserves projects, new generation regrows wood, valid JSON resumes
+ok 43 - life: sixty-second expiry preserves projects, new generation regrows wood, valid JSON resumes
+  ---
+  duration_ms: 0.54075
+  type: 'test'
+  ...
+# Subtest: life: refreshing between lives keeps the handoff and advances only once
+ok 44 - life: refreshing between lives keeps the handoff and advances only once
+  ---
+  duration_ms: 3.160166
+  type: 'test'
+  ...
+1..44
+# tests 44
+# suites 0
+# pass 44
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 420.588583

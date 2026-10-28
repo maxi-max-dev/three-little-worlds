@@ -1,3 +1,4 @@
+import {beginEndless,tickEndless,endlessKill,hitCover} from './endless.js?v=4';
 import {NODES, AREAS} from './world.js?v=3.1';
 export {NODES,AREAS};
 export const W = 480, H = 640;
@@ -6,15 +7,16 @@ export const BUILDS = {
   blast: { name: '重炮', tag: '攒一口大的 · 范围爆破', desc: '把所有蓄弹压成一发炮弹。攒得越多，爆炸越大；6 颗起连爆。', color: '#ffbf69' },
   arc: { name: '雷链', tag: '边吸边打 · 连锁放电', desc: '每吸 3 颗自动电击最近敌人；松手让闪电在敌人间跳跃。', color: '#c7a0ff' }
 };
-export function createState(build = 'swarm') {
+export function createState(build = 'swarm',runMode='campaign') {
   if (!BUILDS[build]) build = 'swarm';
-  return { mode:'intro', node:'a1', area:0, stage:1, visited:[], routes:[], ember:0, story:[null,null], shieldOnce:0, boostOnce:0, safeLamp:false, totalTime:0, roomKills:0, clearCount:0, ready:true, build, buildLevel:1, time:0, wave:1, score:0, hp:5,
+  return { mode:'intro', runMode:runMode==='endless'?'endless':'campaign', node:'a1', area:0, stage:1, visited:[], routes:[], ember:0, story:[null,null], shieldOnce:0, boostOnce:0, safeLamp:false, totalTime:0, roomKills:0, clearCount:0, ready:true, build, buildLevel:1, time:0, wave:1, score:0, hp:5,
     heat:0, ammo:0, cap:build==='blast'?16:12, shield:72, power:1, cool:1,
     holding:false, lock:0, inv:0, kills:0, absorbed:0, biggest:0,
     combo:0, comboTime:0, p:{x:240,y:410}, enemies:[], bullets:[], shots:[],
     events:[], effects:[], spawn:0, pending:0, serial:0, charge:0, releaseCount:0 };
 }
 export function startWave(s,id=s.node) {
+  if(s.runMode==='endless'){beginEndless(s);return;}
   const node=NODES[id];if(!node)throw Error('Unknown room');
   s.node=id;s.area=node.area;s.stage=node.stage;s.wave=node.area*3+node.stage;
   s.visited.push(id);s.mode='play';s.ready=true;s.time=0;s.heat=0;s.ammo=0;s.charge=0;s.holding=false;
@@ -55,10 +57,10 @@ function applyUpgrade(s,id){
  if(id==='heal')s.hp=Math.min(5,s.hp+2);
 }
 export function upgrade(s,id){return decide(s,id);}
-export function contains(w,p,r=0){return p.x>w.x-r&&p.x<w.x+w.w+r&&p.y>w.y-r&&p.y<w.y+w.h+r;}
+export function contains(w,p,r=0){return !(w.warn>0||w.hp<=0)&&p.x>w.x-r&&p.x<w.x+w.w+r&&p.y>w.y-r&&p.y<w.y+w.h+r;}
 export function sight(s,a,b){const d=Math.hypot(a.x-b.x,a.y-b.y),n=Math.ceil(d/6);for(let i=1;i<n;i++){const p={x:a.x+(b.x-a.x)*i/n,y:a.y+(b.y-a.y)*i/n};if((s.walls||[]).some(w=>contains(w,p)))return false;}return true;}
 function move(s,p,dx,dy,r=16){const parts=Math.max(1,Math.ceil(Math.hypot(dx,dy)/6));for(let i=0;i<parts;i++){const x=p.x+dx/parts,y=p.y+dy/parts;if(!(s.walls||[]).some(w=>contains(w,{x,y:p.y},r)))p.x=x;if(!(s.walls||[]).some(w=>contains(w,{x:p.x,y},r)))p.y=y;}p.x=Math.max(22,Math.min(W-22,p.x));p.y=Math.max(100,Math.min(H-72,p.y));}
-function fire(s,e,angles,speed=175){for(const a of angles){if(s.bullets.length>=180)break;s.bullets.push({x:e.x,y:e.y,vx:Math.cos(a)*speed,vy:Math.sin(a)*speed,life:8});}s.events.push({type:'fire',x:e.x,y:e.y});}
+function fire(s,e,angles,speed=175){speed*=s.pressure?.speed||1;for(const a of angles){if(s.bullets.length>=180)break;s.bullets.push({x:e.x,y:e.y,vx:Math.cos(a)*speed,vy:Math.sin(a)*speed,life:8});}s.events.push({type:'fire',x:e.x,y:e.y});}
 function enemyStep(s,e,dt){
  e.age+=dt;if(e.age<.65)return;
  const dx=s.p.x-e.x,dy=s.p.y-e.y,d=Math.hypot(dx,dy)||1;
@@ -73,13 +75,13 @@ function enemyStep(s,e,dt){
   else if(phase===2&&t>=6.2&&e.aim){const a=Math.atan2(e.aim.y-e.y,e.aim.x-e.x);move(s,e,Math.cos(a)*190*dt,Math.sin(a)*190*dt,30);}
   if(t<.1){e.aim=null;e.x+=(240-e.x)*dt*2;e.y+=(170-e.y)*dt*2;}
  }else if(e.kind==='charger'){
-  e.fire-=dt;
+  e.fire-=dt*(s.pressure?.attack||1);
   if(e.fire<.7&&e.fire>0&&!e.aim)e.aim={x:s.p.x,y:s.p.y};
   if(e.fire<=0&&e.fire>-.45&&e.aim){e.dashing=true;const a=Math.atan2(e.aim.y-e.y,e.aim.x-e.x);move(s,e,Math.cos(a)*330*dt,Math.sin(a)*330*dt);}
   if(e.fire<=-.45){e.dashing=false;e.weak=1.6; e.fire=2.8;e.aim=null;}
   if(e.weak>0){e.weak-=dt;if(dist(e,s.p)<65&&s.holding){damage(s,e,dt*2);}}
  }else{
-  e.fire-=dt;
+  e.fire-=dt*(s.pressure?.attack||1);
   if(e.fire<(e.kind==='sniper'?.8:.5)&&!e.aim)e.aim={x:s.p.x,y:s.p.y};
   if(e.fire<=0){const a=Math.atan2((e.aim||s.p).y-e.y,(e.aim||s.p).x-e.x);fire(s,e,e.kind==='sniper'?[a-.025,a,a+.025]:[-.22,0,.22].map(v=>a+v),e.kind==='sniper'?320:165+s.area*12);e.fire=e.kind==='sniper'?2.8:2;e.aim=null;}
  }
@@ -96,7 +98,8 @@ function damage(s,e,amount) {
     s.kills++;s.roomKills++; s.combo++; s.comboTime=1.5;
     s.score+=100+Math.min(5,s.combo-1)*40;
     s.events.push({type:'kill',x:e.x,y:e.y,n:s.combo});
-    if(s.pending===0&&s.enemies.every(e=>e.hp<=0))finishRoom(s);
+    if(s.runMode==='endless')endlessKill(s,e);
+    if(s.runMode!=='endless'&&s.pending===0&&s.enemies.every(e=>e.hp<=0))finishRoom(s);
   }
 }
 function lightning(s,origin,amount,jumps,range) {
@@ -109,6 +112,7 @@ function lightning(s,origin,amount,jumps,range) {
     hit.add(target.id); damage(s,target,amount); from=target;
   }
   if(hit.size) s.events.push({type:'zap',x:origin.x,y:origin.y,n:hit.size});
+  return hit.size;
 }
 export function absorb(s,b) {
   if(s.mode!=='play'||!s.holding||s.lock>0||s.ammo>=s.cap) return false;
@@ -126,7 +130,8 @@ export function release(s) {
   const enemies=s.enemies.filter(e=>e.hp>0&&sight(s,s.p,e)).sort((a,b)=>dist(a,s.p)-dist(b,s.p));
   s.events.push({type:'release',x:s.p.x,y:s.p.y,n,build:s.build});
   if(s.build==='arc') {
-    lightning(s,s.p,s.power*(1.1+n*.45),Math.min(2+s.buildLevel,1+Math.floor(n/2)),900);
+    const hits=lightning(s,s.p,s.power*(1.1+n*.45),Math.min(2+s.buildLevel,1+Math.floor(n/2)),900);
+    if(!hits){const w=s.walls?.filter(w=>w.dynamic&&w.warn<=0&&w.hp>0).sort((a,b)=>dist(s.p,{x:a.x+a.w/2,y:a.y+a.h/2})-dist(s.p,{x:b.x+b.w/2,y:b.y+b.h/2}))[0];if(w&&dist(s.p,{x:w.x+w.w/2,y:w.y+w.h/2})<330){s.effects.push({type:'arc',...s.p,toX:w.x+w.w/2,toY:w.y+w.h/2,life:.24});hitCover(s,w,1.1+n*.45);}}
   } else if(s.build==='blast') {
     const a=enemies.length?Math.atan2(enemies[0].y-s.p.y,enemies[0].x-s.p.x):-Math.PI/2;
     s.shots.push({kind:'blast',x:s.p.x,y:s.p.y,vx:Math.cos(a)*430,vy:Math.sin(a)*430,
@@ -178,6 +183,8 @@ export function step(s,dt,input={}) {
   s.heat=Math.max(0,s.heat+dt*(s.holding?.14/Math.sqrt(s.cool):-.55*s.cool));
   if(oldHeat<.75&&s.heat>=.75)s.events.push({type:'danger',x:s.p.x,y:s.p.y});
   if(s.heat>=1){s.ammo=0;s.holding=false;s.lock=1.15;s.heat=.98;s.events.push({type:'overheat',x:s.p.x,y:s.p.y});}
+  if(s.runMode==='endless')tickEndless(s,dt);
+  else {
   s.spawn-=dt;
   const node=NODES[s.node];
   // Once a group is cleared, offer the next target promptly, retaining its spawn tell.
@@ -188,9 +195,10 @@ export function step(s,dt,input={}) {
    const spot=spots.filter(p=>dist(p,s.p)>150&&!(s.walls||[]).some(w=>contains(w,p,25)))[i%Math.max(1,spots.filter(p=>dist(p,s.p)>150&&!(s.walls||[]).some(w=>contains(w,p,25))).length)];
    if(spot){const hp=kind==='boss'?125:kind==='charger'?4:3+s.area*.4;s.enemies.push({id,...spot,age:0,kind,hp,maxHp:hp,fire:kind==='sniper'?1.5:1.2,phase:1,cycle:0,volley:0});s.pending--;s.spawn=node.interval;}
   }
+  }
   for(const e of s.enemies){if(e.hp>0&&s.mode==='play')enemyStep(s,e,dt);}
   for(const b of s.bullets) {
-    b.x+=b.vx*dt;b.y+=b.vy*dt;b.life-=dt;if(s.walls.some(w=>contains(w,b))){b.life=0;continue;}const d=dist(b,s.p);
+    b.x+=b.vx*dt;b.y+=b.vy*dt;b.life-=dt;const cover=s.walls.find(w=>contains(w,b));if(cover){hitCover(s,cover,1);b.life=0;continue;}const d=dist(b,s.p);
     if(d<s.shield&&sight(s,s.p,b)&&absorb(s,b))b.life=0;
     else if(d<15){hurt(s);b.life=0;}
   }
@@ -199,7 +207,7 @@ export function step(s,dt,input={}) {
     if(!e){e=s.enemies.filter(e=>e.hp>0&&sight(s,b,e)).sort((a,c)=>dist(a,b)-dist(c,b))[0];b.target=e?.id;}
     if(e){const a=Math.atan2(e.y-b.y,e.x-b.x),blend=Math.min(1,dt*(b.kind==='blast'?7:13)),speed=b.kind==='blast'?480:650;b.vx+=(Math.cos(a)*speed-b.vx)*blend;b.vy+=(Math.sin(a)*speed-b.vy)*blend;}
     b.x+=b.vx*dt;b.y+=b.vy*dt;b.life-=dt;
-    if(s.walls.some(w=>contains(w,b))){b.life=0;continue;}
+    const cover=s.walls.find(w=>contains(w,b));if(cover){hitCover(s,cover,b.damage);b.life=0;if(b.kind==='blast')explode(s,b);continue;}
     for(const enemy of s.enemies) {
       if(enemy.hp>0&&dist(enemy,b)<24) {
         b.life=0;
@@ -211,12 +219,12 @@ export function step(s,dt,input={}) {
   s.enemies=s.enemies.filter(e=>e.hp>0);
   s.bullets=s.bullets.filter(b=>b.life>0&&b.x>-20&&b.x<W+20&&b.y>-20&&b.y<H+20);
   s.shots=s.shots.filter(b=>b.life>0);
-  if(s.mode==='play'&&s.pending===0&&s.enemies.length===0) {
+  if(s.runMode!=='endless'&&s.mode==='play'&&s.pending===0&&s.enemies.length===0) {
     finishRoom(s);
   }
 }
 
-function finishRoom(s){if(s.mode!=='play')return;const node=NODES[s.node];
+function finishRoom(s){if(s.runMode==='endless'||s.mode!=='play')return;const node=NODES[s.node];
     s.mode=node.boss?'win':'clear';s.holding=false;s.heat=0;s.bullets=[];s.shots=[];s.clearCount++;s.score+=s.wave*200;
     s.converted=Math.min(2,Math.floor(s.ammo/3));s.ember=Math.min(6,s.ember+Math.min(3,s.roomKills)+s.converted);s.ammo=0;s.boostOnce=0;s.shieldOnce=0;
     if(node.reward==='heal')s.hp=Math.min(5,s.hp+1);

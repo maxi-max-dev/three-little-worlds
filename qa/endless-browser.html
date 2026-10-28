@@ -1,0 +1,21 @@
+<!doctype html><meta charset="utf-8"><title>无尽模式 · 浏览器验收</title><style>body{margin:0;background:#172532;color:#f6edcd;font:14px sans-serif;display:flex;gap:20px}iframe{width:390px;height:844px;border:0}pre{white-space:pre-wrap;max-width:650px}</style><iframe id="game" title="390×844无尽模式"></iframe><div><h1>无尽模式真实时间输入回归</h1><p>合成双指；不修改生命、时间、敌人或分数。不是实体手机、真人压力感验收。</p><pre id="result">启动中</pre></div><script type="module">
+import {pilot} from './endless-simulate.mjs';
+const params=new URLSearchParams(location.search),build=params.get('build')||'swarm',limit=Number(params.get('seconds')||210),f=document.querySelector('iframe'),out=document.querySelector('pre');f.src='../borrow-fire/?qa=1';
+let held=false,moving=false,last=-1,bossSeen=0,bossIds=new Set(),maxEnemies=0,maxBullets=0,maxWalls=0,finished=false,log=[];
+const emit=(w,e,type,id,x=0,y=0)=>e.dispatchEvent(new w.PointerEvent(type,{bubbles:true,pointerType:'touch',pointerId:id,clientX:x,clientY:y}));
+function tap(w,e){if(!e||e.disabled)return;const r=e.getBoundingClientRect();emit(w,e,'pointerdown',1,r.x+10,r.y+10);emit(w,e,'pointerup',1,r.x+10,r.y+10);e.click();}
+function record(v){log.push(v);out.textContent=JSON.stringify(log,null,2);}
+setInterval(()=>{if(finished)return;const w=f.contentWindow,d=w.document,api=w.borrowFireQA;if(!api)return;const s=api.snapshot();
+if(s.mode==='intro'){if(s.runMode!=='endless')tap(w,d.querySelector('[data-mode=endless]'));else if(s.build!==build)tap(w,d.querySelector(`[data-build=${build}]`));else tap(w,d.querySelector('#start'));return;}
+maxEnemies=Math.max(maxEnemies,s.enemies.length);maxBullets=Math.max(maxBullets,s.bullets.length);maxWalls=Math.max(maxWalls,s.walls.length);
+for(const e of s.enemies)if(e.kind==='boss')bossIds.add(e.id);
+const mark=Math.floor(s.time/25);if(mark!==last){last=mark;record({seconds:+s.time.toFixed(1),tier:s.wave,hp:s.hp,kills:s.kills,enemies:s.enemies.length,bosses:s.bosses,broken:s.destroyedCover,expired:s.expiredCover});}
+const fire=d.querySelector('#fire'),joy=d.querySelector('#joystick');
+if(s.mode==='dead'||s.time>=limit){if(held)emit(w,fire,'pointerup',7);if(moving)emit(w,joy,'pointerup',8);finished=true;record({done:true,result:s.mode,seconds:+s.time.toFixed(1),hp:s.hp,kills:s.kills,bosses:s.bosses,bossesSeen:bossIds.size,broken:s.destroyedCover,expired:s.expiredCover,maxEnemies,maxBullets,maxWalls,errors:api.errors(),performance:api.performance()});out.dataset.done='true';if(s.mode==='play')d.querySelector('#pause').click();return;}
+if(d.querySelector('#resume')&&!d.querySelector('#overlay').hidden){tap(w,d.querySelector('#resume'));return;}
+const target=pilot(s),dx=target.x-s.p.x,dy=target.y-s.p.y,len=Math.hypot(dx,dy),r=joy.getBoundingClientRect(),scale=Math.min(1,len/20),x=r.x+r.width/2+(len?dx/len:0)*r.width*.45*scale,y=r.y+r.height/2+(len?dy/len:0)*r.height*.45*scale;
+if(!moving){emit(w,joy,'pointerdown',8,x,y);moving=true;}else emit(w,joy,'pointermove',8,x,y);
+if(held&&(s.ammo>=(build==='blast'?6:3)||s.heat>.68)){emit(w,fire,'pointerup',7);held=false;return;}
+if(!held&&s.heat<.82){const r=fire.getBoundingClientRect();emit(w,fire,'pointerdown',7,r.x+r.width/2,r.y+r.height/2);held=true;}
+},50);
+</script>

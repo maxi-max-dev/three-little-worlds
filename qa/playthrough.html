@@ -11,6 +11,7 @@ setInterval(()=>{
  const s=api.snapshot(),key=s.mode+':'+s.node+':'+s.story.join(',')+':'+s.areaUpgraded;
  if(key!==logged){record({mode:s.mode,node:s.node,hp:s.hp,time:+s.totalTime.toFixed(1),ember:s.ember,build:s.build,level:s.buildLevel,story:s.story});logged=key;chosen=false;}
  if(s.mode==='intro'){
+  if(s.runMode!=='campaign'){tap(win,doc.querySelector('[data-mode=campaign]'));return;}
   if(s.build!==build)tap(win,doc.querySelector(`[data-build="${build}"]`));else tap(win,doc.querySelector('#start'));return;
  }
  if(s.mode==='dead'||s.mode==='win'){if(held){event(win,doc.querySelector('#fire'),'pointerup',7);held=false;}if(moving){event(win,doc.querySelector('#joystick'),'pointerup',8);moving=false;}finished=true;record({result:s.mode,visited:s.visited,perf:api.performance(),absorbed:s.absorbed,releases:s.releaseCount,errors:api.errors(),complete:true});out.dataset.done=s.mode;return;}

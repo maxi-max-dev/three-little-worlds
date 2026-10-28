@@ -31,14 +31,14 @@ export function renderScene(ctx,s,dt,t,fx){ctx.imageSmoothingEnabled=false;const
  ctx.font='bold 18px "Courier New","PingFang SC",monospace';ctx.textAlign='center';for(const l of fx.labels||[]){l.life-=dt;l.y-=dt*15;ctx.globalAlpha=Math.min(1,Math.max(0,l.life*2));ctx.fillStyle='#13232e';ctx.fillText(l.text,l.x+2,l.y+2);ctx.fillStyle=l.color;ctx.fillText(l.text,l.x,l.y);}ctx.globalAlpha=1;fx.labels=(fx.labels||[]).filter(l=>l.life>0);if(s.mode==='play'&&s.wave===1&&(s.absorbed===0||s.releaseCount===0)){ctx.font='bold 13px "PingFang SC",sans-serif';ctx.fillStyle=C.cream;ctx.fillText('按住接橙弹 → 松手反击',240,563);}ctx.restore();return fx;}
 
 function world(ctx,s,t,reduced){
- const area=s.area||0,col=['#bfa678','#88e1c4','#c7a0ff'][area];
+ const area=s.runMode==='endless'?Math.floor((s.wave-1)/3)%3:s.area||0,col=['#bfa678','#88e1c4','#c7a0ff'][area];
  // Distinct machinery silhouettes, kept dimmer than hostile projectiles.
  ctx.globalAlpha=.45;
  if(area===0){for(const x of [28,405]){rect(ctx,x,120,42,130,'#64554a');for(let y=130;y<240;y+=24)rect(ctx,x+5,y,30,8,'#222e37');}for(let x=30;x<450;x+=55)rect(ctx,x,560,25,8,'#786447');}
  if(area===1){for(let y=140;y<530;y+=100){rect(ctx,26,y,428,8,'#47686a');rect(ctx,32,y-4,18,16,col);rect(ctx,430,y-4,18,16,col);}rect(ctx,230,100,20,450,'#365654');}
  if(area===2){rect(ctx,155,100,170,145,'#4b4261');rect(ctx,175,116,130,104,'#302e47');for(let x=185;x<310;x+=24)rect(ctx,x,125,10,70,'#6c557a');}
  ctx.globalAlpha=1;
- for(const w of s.walls||[]){rect(ctx,w.x,w.y,w.w,w.h,'#10232c');rect(ctx,w.x+3,w.y+3,w.w-6,w.h-6,'#52666a');rect(ctx,w.x+5,w.y+5,w.w-10,4,w.lamp?'#88e1c4':col);for(let x=w.x+8;x<w.x+w.w-5;x+=14)rect(ctx,x,w.y+w.h-6,5,3,'#293c47');}
+ for(const w of s.walls||[]){if(w.hp<=0)continue;if(w.warn>0){ctx.save();ctx.strokeStyle='#ffc779';ctx.setLineDash([5,5]);ctx.lineWidth=2;ctx.strokeRect(w.x,w.y,w.w,w.h);ctx.setLineDash([]);ctx.fillStyle='#ffc779';ctx.font='11px sans-serif';ctx.textAlign='center';ctx.fillText('即将升起',w.x+w.w/2,w.y-7);ctx.restore();continue;}rect(ctx,w.x,w.y,w.w,w.h,'#10232c');rect(ctx,w.x+3,w.y+3,w.w-6,w.h-6,'#52666a');rect(ctx,w.x+5,w.y+5,w.w-10,4,w.lamp?'#88e1c4':col);for(let x=w.x+8;x<w.x+w.w-5;x+=14)rect(ctx,x,w.y+w.h-6,5,3,'#293c47');if(w.dynamic){rect(ctx,w.x,w.y-6,w.w,3,'#142631');rect(ctx,w.x,w.y-6,w.w*Math.max(0,w.hp/w.maxHp),3,'#88e1c4');if(w.life<4){ctx.strokeStyle='#ffc779';ctx.lineWidth=2;ctx.strokeRect(w.x-2,w.y-2,w.w+4,w.h+4);}}}
  if(s.mode==='clear'){for(const x of [120,325]){rect(ctx,x,82,36,42,col);rect(ctx,x+5,90,26,34,'#10232c');ctx.fillStyle=col;ctx.font='24px monospace';ctx.textAlign='center';ctx.fillText('↑',x+18,112);}}
  if(s.story?.[0]==='help'){for(const x of [35,435])rect(ctx,x,250,10,14,'#ffc779');}
  if(s.story?.[1]==='help'){rect(ctx,26,78,428,5,'#88e1c4');}

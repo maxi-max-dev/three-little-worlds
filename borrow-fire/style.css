@@ -12,3 +12,6 @@ button:disabled{opacity:.48;cursor:default;transform:none}.choice[aria-pressed="
 /* Keep score above the bulkhead at the smallest desktop canvas scale. */
 .hud{inset:5px 10px auto}.hud small,#buildLabel{line-height:1.1}.hud strong{font-size:16px;margin-top:0}
 .choices[hidden]{display:none}
+
+.mode-picker{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}.mode-picker button{font-size:15px;min-height:58px;padding:8px}.mode-picker small{display:block;font-size:11px;line-height:1.5;color:#bccdd0}.mode-picker [aria-pressed="true"]{border-color:var(--gold);background:#4d483d}.mode-picker button:focus-visible{outline:2px solid var(--gold)}
+.overlay{z-index:3}.game:has(.overlay:not([hidden])){width:min(100%,calc((100svh - 215px)*.75))}.mode-picker~.build-info{padding:6px 8px}.card #buildDesc{min-height:0}

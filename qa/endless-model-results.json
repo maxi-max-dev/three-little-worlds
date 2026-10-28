@@ -1,0 +1,317 @@
+[
+  {
+    "build": "swarm",
+    "result": "play",
+    "seconds": 240,
+    "hp": 5,
+    "kills": 569,
+    "bosses": 2,
+    "bossSeen": true,
+    "broken": 8,
+    "expired": 3,
+    "maxEnemies": 13,
+    "maxBullets": 46,
+    "checkpoints": [
+      {
+        "seconds": 0,
+        "tier": 1,
+        "hp": 5,
+        "enemies": 0,
+        "kills": 0,
+        "bosses": 0,
+        "cover": 0
+      },
+      {
+        "seconds": 25,
+        "tier": 2,
+        "hp": 5,
+        "enemies": 3,
+        "kills": 12,
+        "bosses": 0,
+        "cover": 0
+      },
+      {
+        "seconds": 50,
+        "tier": 3,
+        "hp": 5,
+        "enemies": 2,
+        "kills": 31,
+        "bosses": 0,
+        "cover": 1
+      },
+      {
+        "seconds": 75,
+        "tier": 4,
+        "hp": 5,
+        "enemies": 3,
+        "kills": 50,
+        "bosses": 0,
+        "cover": 1
+      },
+      {
+        "seconds": 100,
+        "tier": 5,
+        "hp": 5,
+        "enemies": 4,
+        "kills": 93,
+        "bosses": 1,
+        "cover": 1
+      },
+      {
+        "seconds": 125,
+        "tier": 6,
+        "hp": 5,
+        "enemies": 2,
+        "kills": 145,
+        "bosses": 1,
+        "cover": 0
+      },
+      {
+        "seconds": 150,
+        "tier": 7,
+        "hp": 5,
+        "enemies": 4,
+        "kills": 197,
+        "bosses": 1,
+        "cover": 0
+      },
+      {
+        "seconds": 175,
+        "tier": 8,
+        "hp": 5,
+        "enemies": 1,
+        "kills": 287,
+        "bosses": 1,
+        "cover": 1
+      },
+      {
+        "seconds": 200,
+        "tier": 9,
+        "hp": 5,
+        "enemies": 9,
+        "kills": 375,
+        "bosses": 2,
+        "cover": 1
+      },
+      {
+        "seconds": 225,
+        "tier": 10,
+        "hp": 5,
+        "enemies": 7,
+        "kills": 479,
+        "bosses": 2,
+        "cover": 1
+      }
+    ]
+  },
+  {
+    "build": "blast",
+    "result": "play",
+    "seconds": 240,
+    "hp": 5,
+    "kills": 512,
+    "bosses": 2,
+    "bossSeen": true,
+    "broken": 9,
+    "expired": 1,
+    "maxEnemies": 13,
+    "maxBullets": 58,
+    "checkpoints": [
+      {
+        "seconds": 0,
+        "tier": 1,
+        "hp": 5,
+        "enemies": 0,
+        "kills": 0,
+        "bosses": 0,
+        "cover": 0
+      },
+      {
+        "seconds": 25,
+        "tier": 2,
+        "hp": 5,
+        "enemies": 2,
+        "kills": 13,
+        "bosses": 0,
+        "cover": 0
+      },
+      {
+        "seconds": 50,
+        "tier": 3,
+        "hp": 5,
+        "enemies": 4,
+        "kills": 29,
+        "bosses": 0,
+        "cover": 0
+      },
+      {
+        "seconds": 75,
+        "tier": 4,
+        "hp": 5,
+        "enemies": 3,
+        "kills": 50,
+        "bosses": 0,
+        "cover": 1
+      },
+      {
+        "seconds": 100,
+        "tier": 5,
+        "hp": 5,
+        "enemies": 4,
+        "kills": 87,
+        "bosses": 0,
+        "cover": 0
+      },
+      {
+        "seconds": 125,
+        "tier": 6,
+        "hp": 5,
+        "enemies": 3,
+        "kills": 131,
+        "bosses": 1,
+        "cover": 0
+      },
+      {
+        "seconds": 150,
+        "tier": 7,
+        "hp": 5,
+        "enemies": 3,
+        "kills": 185,
+        "bosses": 1,
+        "cover": 0
+      },
+      {
+        "seconds": 175,
+        "tier": 8,
+        "hp": 5,
+        "enemies": 9,
+        "kills": 261,
+        "bosses": 1,
+        "cover": 0
+      },
+      {
+        "seconds": 200,
+        "tier": 9,
+        "hp": 5,
+        "enemies": 5,
+        "kills": 355,
+        "bosses": 1,
+        "cover": 0
+      },
+      {
+        "seconds": 225,
+        "tier": 10,
+        "hp": 5,
+        "enemies": 10,
+        "kills": 434,
+        "bosses": 2,
+        "cover": 0
+      }
+    ]
+  },
+  {
+    "build": "arc",
+    "result": "play",
+    "seconds": 240,
+    "hp": 5,
+    "kills": 553,
+    "bosses": 2,
+    "bossSeen": true,
+    "broken": 9,
+    "expired": 1,
+    "maxEnemies": 13,
+    "maxBullets": 66,
+    "checkpoints": [
+      {
+        "seconds": 0,
+        "tier": 1,
+        "hp": 5,
+        "enemies": 0,
+        "kills": 0,
+        "bosses": 0,
+        "cover": 0
+      },
+      {
+        "seconds": 25,
+        "tier": 2,
+        "hp": 5,
+        "enemies": 2,
+        "kills": 13,
+        "bosses": 0,
+        "cover": 1
+      },
+      {
+        "seconds": 50,
+        "tier": 3,
+        "hp": 5,
+        "enemies": 1,
+        "kills": 32,
+        "bosses": 0,
+        "cover": 0
+      },
+      {
+        "seconds": 75,
+        "tier": 4,
+        "hp": 5,
+        "enemies": 3,
+        "kills": 50,
+        "bosses": 0,
+        "cover": 1
+      },
+      {
+        "seconds": 100,
+        "tier": 5,
+        "hp": 5,
+        "enemies": 4,
+        "kills": 94,
+        "bosses": 0,
+        "cover": 1
+      },
+      {
+        "seconds": 125,
+        "tier": 6,
+        "hp": 5,
+        "enemies": 8,
+        "kills": 138,
+        "bosses": 1,
+        "cover": 0
+      },
+      {
+        "seconds": 150,
+        "tier": 7,
+        "hp": 5,
+        "enemies": 5,
+        "kills": 195,
+        "bosses": 1,
+        "cover": 0
+      },
+      {
+        "seconds": 175,
+        "tier": 8,
+        "hp": 5,
+        "enemies": 7,
+        "kills": 276,
+        "bosses": 1,
+        "cover": 0
+      },
+      {
+        "seconds": 200,
+        "tier": 9,
+        "hp": 5,
+        "enemies": 10,
+        "kills": 368,
+        "bosses": 1,
+        "cover": 0
+      },
+      {
+        "seconds": 225,
+        "tier": 10,
+        "hp": 5,
+        "enemies": 6,
+        "kills": 473,
+        "bosses": 2,
+        "cover": 0
+      }
+    ]
+  }
+]
