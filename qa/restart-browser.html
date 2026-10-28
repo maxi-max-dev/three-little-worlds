@@ -1,0 +1,11 @@
+<!doctype html><meta charset="utf-8"><title>借火重开回归</title><iframe id="game" width="390" height="844" src="storage-shell.html?qa=1"></iframe><pre id="result">运行中：禁用存储，等待正常死亡</pre><script type="module">
+const f=document.querySelector('iframe'),out=document.querySelector('pre');let log=[],count=0,started=false,finished=false,lastMode='';
+function tap(w,b){if(!b||b.disabled)return false;const r=b.getBoundingClientRect();for(const type of ['pointerdown','pointerup'])b.dispatchEvent(new w.PointerEvent(type,{bubbles:true,pointerId:20,pointerType:'touch',clientX:r.x+10,clientY:r.y+10}));b.click();return true;}
+setInterval(()=>{if(finished)return;const w=f.contentWindow,d=w.document,api=w.borrowFireQA;if(!api)return;const s=api.snapshot();
+if(s.mode==='intro'){tap(w,d.querySelector('#start'));return;}
+if(s.mode==='play'&&!started){const clean=s.enemies.length===0&&s.ammo===0&&s.buildLevel===1&&s.visited.length===1&&s.story.every(x=>x===null);log.push({restart:count,clean,hp:s.hp,ready:s.ready});const c=d.querySelector('canvas');c.focus();c.dispatchEvent(new w.KeyboardEvent('keydown',{bubbles:true,code:'KeyD'}));c.dispatchEvent(new w.KeyboardEvent('keyup',{bubbles:true,code:'KeyD'})); // no frame between keys: start with a short fresh move below
+started=true;setTimeout(()=>c.dispatchEvent(new w.KeyboardEvent('keyup',{bubbles:true,code:'KeyD'})),100);c.dispatchEvent(new w.KeyboardEvent('keydown',{bubbles:true,code:'KeyD'}));}
+if(s.mode==='dead'){if(count===3){log.push({done:true,deaths:4,errors:api.errors(),allClean:log.filter(x=>'clean'in x).every(x=>x.clean)});finished=true;out.dataset.done='true';}else if(tap(w,d.querySelector('#retry'))){count++;started=false;}}
+out.textContent=JSON.stringify(log,null,2);
+},100);
+</script>

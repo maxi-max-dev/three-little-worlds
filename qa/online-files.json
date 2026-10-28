@@ -1,0 +1,44 @@
+[
+  {
+    "file": "index.html",
+    "http": 200,
+    "sha256": "d0e6782b916756740a131b6c29941a45ffa0db90850b0fbba37b2f1e5146c2ff",
+    "same": true
+  },
+  {
+    "file": "game.js",
+    "http": 200,
+    "sha256": "2f5dc7a2e8b8f37f639e9c8b3a89447737471ff872c45928e692ea630ed76eb0",
+    "same": true
+  },
+  {
+    "file": "model.js",
+    "http": 200,
+    "sha256": "8a0a3c228f13e6d733849a16c816f1ec693d5b62ab5bd69907fd3fd168c932d5",
+    "same": true
+  },
+  {
+    "file": "renderer.js",
+    "http": 200,
+    "sha256": "2dc7c1962f66ec5b46be1ef5009ac66558042fe45e5afd10483e757e239e1747",
+    "same": true
+  },
+  {
+    "file": "style.css",
+    "http": 200,
+    "sha256": "b407e34e72ba9d186cd930738ea360dd9e34cbbd024f89d1c8b1699565d62358",
+    "same": true
+  },
+  {
+    "file": "input-gate.js",
+    "http": 200,
+    "sha256": "db5a416dc9712b1943815e7c31252f4e5c3821c733cdb7d410801732c629caee",
+    "same": true
+  },
+  {
+    "file": "world.js",
+    "http": 200,
+    "sha256": "471c33c1bd633c692f18892cf87fb80f53e90e2821cf5d6820fe9e03f62037b1",
+    "same": true
+  }
+]

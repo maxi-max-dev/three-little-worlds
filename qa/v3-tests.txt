@@ -1,207 +1,211 @@
+
+> test
+> node --test tests/*.test.js borrow-fire/tests/*.mjs qa/model-playthrough.test.mjs
+
 TAP version 13
 # Subtest: twelve configurations form exactly nine nodes on all eight routes
 ok 1 - twelve configurations form exactly nine nodes on all eight routes
   ---
-  duration_ms: 1.01425
+  duration_ms: 1.542333
   type: 'test'
   ...
 # Subtest: new room remains frozen until fresh input; then first absorb within ten seconds
 ok 2 - new room remains frozen until fresh input; then first absorb within ten seconds
   ---
-  duration_ms: 1.459792
+  duration_ms: 2.325
   type: 'test'
   ...
 # Subtest: clear pauses time, clears heat/danger and converts bounded ember exactly once
 ok 3 - clear pauses time, clears heat/danger and converts bounded ember exactly once
   ---
-  duration_ms: 0.126708
+  duration_ms: 0.146375
   type: 'test'
   ...
 # Subtest: story help and self have actual costs and benefits, unaffordable choice rejects
 ok 4 - story help and self have actual costs and benefits, unaffordable choice rejects
   ---
-  duration_ms: 0.35525
+  duration_ms: 0.45525
   type: 'test'
   ...
 # Subtest: no useless heal at full health; route locks and no repeat rewards
 ok 5 - no useless heal at full health; route locks and no repeat rewards
   ---
-  duration_ms: 0.180708
+  duration_ms: 0.205583
   type: 'test'
   ...
 # Subtest: walls prevent walking through, permit sliding, block bullets and lightning
 ok 6 - walls prevent walking through, permit sliding, block bullets and lightning
   ---
-  duration_ms: 1.0715
+  duration_ms: 5.219709
   type: 'test'
   ...
 # Subtest: isolated charger has a visible recovery vulnerability usable without ammo
 ok 7 - isolated charger has a visible recovery vulnerability usable without ammo
   ---
-  duration_ms: 0.184459
+  duration_ms: 0.643417
   type: 'test'
   ...
 # Subtest: boss phase transition clears danger, exposure deals more, death stops damage
 ok 8 - boss phase transition clears danger, exposure deals more, death stops damage
   ---
-  duration_ms: 0.1975
+  duration_ms: 0.784959
   type: 'test'
   ...
 # Subtest: death and consecutive restarts reset all run state
 ok 9 - death and consecutive restarts reset all run state
   ---
-  duration_ms: 0.98575
+  duration_ms: 2.109209
   type: 'test'
   ...
 # Subtest: A13 physical hold survives generation and five seconds; release never chooses
 ok 10 - A13 physical hold survives generation and five seconds; release never chooses
   ---
-  duration_ms: 1.003625
+  duration_ms: 0.723292
   type: 'test'
   ...
 # Subtest: A14 locked starts and stale clicks cannot queue; drag out rejected
 ok 11 - A14 locked starts and stale clicks cannot queue; drag out rejected
   ---
-  duration_ms: 0.514166
+  duration_ms: 0.11625
   type: 'test'
   ...
 # Subtest: A15 both fingers released, suspension starts fresh
 ok 12 - A15 both fingers released, suspension starts fresh
   ---
-  duration_ms: 0.263542
+  duration_ms: 0.0655
   type: 'test'
   ...
 # Subtest: A16 repeat and long Enter cannot cross generations
 ok 13 - A16 repeat and long Enter cannot cross generations
   ---
-  duration_ms: 0.595834
+  duration_ms: 0.097416
   type: 'test'
   ...
 # Subtest: A17 generation invalidates saved confirmation and up is once-only
 ok 14 - A17 generation invalidates saved confirmation and up is once-only
   ---
-  duration_ms: 0.365958
+  duration_ms: 0.050375
   type: 'test'
   ...
 # Subtest: A18 minimum delays and unlimited reading
 ok 15 - A18 minimum delays and unlimited reading
   ---
-  duration_ms: 0.239917
+  duration_ms: 0.047417
   type: 'test'
   ...
 # Subtest: swarm nine rooms, no story required, evolve
 ok 16 - swarm nine rooms, no story required, evolve
   ---
-  duration_ms: 64.531
+  duration_ms: 81.517208
   type: 'test'
   ...
 # Subtest: swarm nine rooms, no story required, cool
 ok 17 - swarm nine rooms, no story required, cool
   ---
-  duration_ms: 48.673375
+  duration_ms: 78.447167
   type: 'test'
   ...
 # Subtest: blast nine rooms, no story required, evolve
 ok 18 - blast nine rooms, no story required, evolve
   ---
-  duration_ms: 42.026458
+  duration_ms: 58.481334
   type: 'test'
   ...
 # Subtest: blast nine rooms, no story required, cool
 ok 19 - blast nine rooms, no story required, cool
   ---
-  duration_ms: 30.742875
+  duration_ms: 30.531417
   type: 'test'
   ...
 # Subtest: arc nine rooms, no story required, evolve
 ok 20 - arc nine rooms, no story required, evolve
   ---
-  duration_ms: 31.401292
+  duration_ms: 32.646416
   type: 'test'
   ...
 # Subtest: arc nine rooms, no story required, cool
 ok 21 - arc nine rooms, no story required, cool
   ---
-  duration_ms: 30.962875
+  duration_ms: 30.7535
   type: 'test'
   ...
 # Subtest: all risk configurations playable by blast, not a guarantee all strategies win
 ok 22 - all risk configurations playable by blast, not a guarantee all strategies win
   ---
-  duration_ms: 45.766792
+  duration_ms: 57.781708
   type: 'test'
   ...
 # Greedy legal full-game totals: 670, 806, 682, 734, 604
 # Subtest: loot: heavier gear changes movement, weight cap rejects an extra item, dropping preserves it
 ok 23 - loot: heavier gear changes movement, weight cap rejects an extra item, dropping preserves it
   ---
-  duration_ms: 1.810584
+  duration_ms: 0.914
   type: 'test'
   ...
 # Subtest: loot: feather opens only the light route; bell opens a permanent usable bridge
 ok 24 - loot: feather opens only the light route; bell opens a permanent usable bridge
   ---
-  duration_ms: 0.543667
+  duration_ms: 0.384417
   type: 'test'
   ...
 # Subtest: loot: a complete near-shore round returns a score; timeout never banks cargo
 ok 25 - loot: a complete near-shore round returns a score; timeout never banks cargo
   ---
-  duration_ms: 0.628625
+  duration_ms: 0.640375
   type: 'test'
   ...
 # Subtest: loot: lamp blocks ghost damage, life countdown is independent of protection
 ok 26 - loot: lamp blocks ghost damage, life countdown is independent of protection
   ---
-  duration_ms: 0.320959
+  duration_ms: 0.248041
   type: 'test'
   ...
 # Subtest: grid: water changes downstream forest, orchard and hive production
 ok 27 - grid: water changes downstream forest, orchard and hive production
   ---
-  duration_ms: 0.809458
+  duration_ms: 0.657166
   type: 'test'
   ...
 # Subtest: grid: pollution removes downstream yield and replacement restores it
 ok 28 - grid: pollution removes downstream yield and replacement restores it
   ---
-  duration_ms: 0.56475
+  duration_ms: 0.15825
   type: 'test'
   ...
 # Subtest: grid: legal whole games terminate after exactly twelve choices and can win without a fixed draw
 ok 29 - grid: legal whole games terminate after exactly twelve choices and can win without a fixed draw
   ---
-  duration_ms: 9.565417
+  duration_ms: 13.461375
   type: 'test'
   ...
 # Subtest: grid: unavailable cards and level-four upgrades cannot consume a turn
 ok 30 - grid: unavailable cards and level-four upgrades cannot consume a turn
   ---
-  duration_ms: 0.073958
+  duration_ms: 0.172875
   type: 'test'
   ...
 # Subtest: life: bridge can be built gradually and carried wood is not inherited
 ok 31 - life: bridge can be built gradually and carried wood is not inherited
   ---
-  duration_ms: 0.351625
+  duration_ms: 0.694042
   type: 'test'
   ...
 # Subtest: life: lighthouse completion requires a tree planted by a prior generation
 ok 32 - life: lighthouse completion requires a tree planted by a prior generation
   ---
-  duration_ms: 0.39225
+  duration_ms: 0.585167
   type: 'test'
   ...
 # Subtest: life: sixty-second expiry preserves projects, new generation regrows wood, valid JSON resumes
 ok 33 - life: sixty-second expiry preserves projects, new generation regrows wood, valid JSON resumes
   ---
-  duration_ms: 0.161625
+  duration_ms: 0.205042
   type: 'test'
   ...
 # Subtest: life: refreshing between lives keeps the handoff and advances only once
 ok 34 - life: refreshing between lives keeps the handoff and advances only once
   ---
-  duration_ms: 0.624542
+  duration_ms: 0.60675
   type: 'test'
   ...
 1..34
@@ -212,4 +216,4 @@ ok 34 - life: refreshing between lives keeps the handoff and advances only once
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 413.084791
+# duration_ms 496.96025
