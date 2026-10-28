@@ -1,4 +1,4 @@
-import {protectPanel} from './input-gate.js?v=3';
+import {protectPanel} from './input-gate.js?v=3.0.3';
 import {W,H,BUILDS,createState,startWave,release,upgrade,step,options,decide,NODES,AREAS} from './model.js?v=3';
 import {renderScene} from './renderer.js?v=3';
 const $=id=>document.getElementById(id),canvas=$('game'),ctx=canvas.getContext('2d');
@@ -15,7 +15,7 @@ function loadBest(){try{best=Number(localStorage.getItem(`borrow-fire-v3-${selec
 function start(){s=createState(selectedBuild);resetInput();particles=[];rings=[];labels=[];pointer=null;keys.clear();paused=false;shown='';loadBest();startWave(s);tone(300,.15);canvas.focus({preventScroll:true});}
 function chooseBuild(){s=createState(selectedBuild);pointer=null;keys.clear();paused=false;shown='';loadBest();updateOverlay();}
 function card(html){resetInput();$('card').innerHTML=html+'<p data-gate-status role=\"status\"></p>';$('overlay').hidden=false;}
-function bindPanel(wait=1200){const bindings=[...$('card').querySelectorAll('button')].map(b=>{const fn=b.onclick;b.onclick=null;return [b,fn];});panel.open(bindings,wait);}
+function bindPanel(wait=1200){const bindings=[...$('card').querySelectorAll('button')].filter(b=>!b.closest('[hidden]')).map(b=>{const fn=b.onclick;b.onclick=null;return [b,fn];});panel.open(bindings,wait);}
 function updateOverlay(){
   const mode=paused?'pause':s.mode;const overlayKey=mode==='clear'?mode+':'+s.node+':'+s.story.join(',')+':'+s.areaUpgraded:mode;
   if(shown===overlayKey)return;const sameRoomStep=mode==='clear'&&shown.startsWith('clear:'+s.node+':');shown=overlayKey;$('overlay').hidden=mode==='play';$('overlay').classList.toggle('ending',mode==='win');if(mode==='play')panel.close();
