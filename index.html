@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#182c49"><meta name="description" content="三个能亲手玩的微型世界：再拿一件、九格小世界、一分钟人生。"><title>小小世界 · 三款试玩</title><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='12' fill='%23182c49'/%3E%3Cpath d='M8 25L20 10l12 15-12 7z' fill='%2391c5bf'/%3E%3C/svg%3E"><link rel="stylesheet" href="style.css"></head>
+<body>
+<header class="topbar"><a class="brand" href="#" aria-label="回到试玩室"><svg width="30" height="30" viewBox="0 0 40 40" aria-hidden="true"><path d="M4 25 20 16 36 25 20 34Z" fill="#718daf"/><path d="M4 17 20 8 36 17 20 26Z" fill="#aad4c8"/></svg><span>小小世界<small>试玩室</small></span></a><nav aria-label="切换游戏"><button data-route="loot">再拿一件</button><button data-route="grid">九格小世界</button><button data-route="life">一分钟人生</button></nav><button class="sound ghost" id="sound" aria-pressed="false" title="开启音效">音效 关</button></header>
+<main>
+<section id="home" class="home">
+ <div class="intro"><p class="eyebrow">THREE LITTLE WORLDS</p><h1>挑一个世界，<br>进去玩。</h1><p class="lead">带走什么，留下什么，怎样让一点点变成很多。<br>三个念头，等你亲手试一试。</p></div>
+ <div class="game-cards">
+  <button class="game-card amber" data-route="loot"><div class="cover"><canvas id="cover-loot" width="520" height="320" aria-hidden="true"></canvas><span class="tag">冒险 · 90 秒一局</span></div><div class="card-copy"><span class="tiny">THE WEIGHT OF WANT</span><h2>再拿一件</h2><p>宝物会给你能力，也会成为负担。<br>潮水来之前，带着你的选择回船。</p><span class="play-link">出发捡宝 <b>↗</b></span></div></button>
+  <button class="game-card mint" data-route="grid"><div class="cover"><canvas id="cover-grid" width="520" height="320" aria-hidden="true"></canvas><span class="tag">组合 · 十二轮</span></div><div class="card-copy"><span class="tiny">A WORLD IN NINE</span><h2>九格小世界</h2><p>一塘水，一片树，一整串连锁。<br>每一次放下，都让世界有点不同。</p><span class="play-link">种下第一步 <b>↗</b></span></div></button>
+  <button class="game-card lilac" data-route="life"><div class="cover"><canvas id="cover-life" width="520" height="320" aria-hidden="true"></canvas><span class="tag">探索 · 每代 60 秒</span></div><div class="card-copy"><span class="tiny">THE LIGHT WE LEAVE</span><h2>一分钟人生</h2><p>种下的树、没修完的桥，都留下。<br>下一代会接着走，直到灯塔亮起。</p><span class="play-link">开始这一生 <b>↗</b></span></div></button>
+ </div><p class="home-foot">键盘或屏幕按钮都能玩 <span>·</span> 随时暂停 <span>·</span> 记录保存在当前浏览器</p>
+</section>
+<section id="play" class="play" hidden>
+ <div class="play-heading"><div><button class="back ghost" id="back">← 试玩室</button><h1 id="game-title"></h1><p id="game-subtitle"></p></div><div class="play-tools"><button class="ghost" id="pause">暂停</button><button class="ghost" id="restart">重开</button></div></div>
+ <div class="game-layout"><div class="game-main"><div id="hud" class="hud"></div><div id="stage" class="stage" tabindex="0" aria-label="游戏画面"><canvas id="world" width="920" height="540" aria-label="冒险地图，请使用方向键或屏幕方向按钮移动"></canvas><div id="grid-area" hidden></div><div id="overlay" class="overlay" hidden></div></div><div id="controls"></div><div class="status-line" id="status" role="status" aria-live="polite"></div></div><aside id="side" class="side"></aside></div>
+</section>
+</main><footer>小小世界 <span>·</span> 核心玩法试玩 0.1</footer>
+<script type="module" src="app.js"></script>
+</body></html>
