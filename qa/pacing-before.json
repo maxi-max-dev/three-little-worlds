@@ -1,0 +1,83 @@
+[
+  {
+    "build": "swarm",
+    "mode": "clear",
+    "rooms": [
+      {
+        "node": "a1",
+        "seconds": 25.42,
+        "emptySeconds": 10.57,
+        "maxAlive": 2,
+        "hp": 5
+      },
+      {
+        "node": "a2s",
+        "seconds": 28.02,
+        "emptySeconds": 9.53,
+        "maxAlive": 2,
+        "hp": 5
+      },
+      {
+        "node": "a3",
+        "seconds": 34.18,
+        "emptySeconds": 10.08,
+        "maxAlive": 2,
+        "hp": 5
+      }
+    ]
+  },
+  {
+    "build": "blast",
+    "mode": "clear",
+    "rooms": [
+      {
+        "node": "a1",
+        "seconds": 27.75,
+        "emptySeconds": 14.47,
+        "maxAlive": 1,
+        "hp": 5
+      },
+      {
+        "node": "a2s",
+        "seconds": 26.3,
+        "emptySeconds": 9.03,
+        "maxAlive": 2,
+        "hp": 5
+      },
+      {
+        "node": "a3",
+        "seconds": 34.78,
+        "emptySeconds": 10.7,
+        "maxAlive": 2,
+        "hp": 5
+      }
+    ]
+  },
+  {
+    "build": "arc",
+    "mode": "clear",
+    "rooms": [
+      {
+        "node": "a1",
+        "seconds": 27.37,
+        "emptySeconds": 10.43,
+        "maxAlive": 1,
+        "hp": 5
+      },
+      {
+        "node": "a2s",
+        "seconds": 28.15,
+        "emptySeconds": 3.22,
+        "maxAlive": 2,
+        "hp": 5
+      },
+      {
+        "node": "a3",
+        "seconds": 33.98,
+        "emptySeconds": 5.78,
+        "maxAlive": 2,
+        "hp": 5
+      }
+    ]
+  }
+]

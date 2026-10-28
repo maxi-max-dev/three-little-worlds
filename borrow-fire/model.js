@@ -1,4 +1,4 @@
-import {NODES, AREAS} from './world.js?v=3';
+import {NODES, AREAS} from './world.js?v=3.1';
 export {NODES,AREAS};
 export const W = 480, H = 640;
 export const BUILDS = {
@@ -180,7 +180,9 @@ export function step(s,dt,input={}) {
   if(s.heat>=1){s.ammo=0;s.holding=false;s.lock=1.15;s.heat=.98;s.events.push({type:'overheat',x:s.p.x,y:s.p.y});}
   s.spawn-=dt;
   const node=NODES[s.node];
-  if(s.pending>0&&s.spawn<=0&&s.enemies.length<6){
+  // Once a group is cleared, offer the next target promptly, retaining its spawn tell.
+  if(s.pending>0&&s.roomKills>0&&s.enemies.length===0)s.spawn=Math.min(s.spawn,.4);
+  if(s.pending>0&&s.spawn<=0&&s.enemies.length<node.maxAlive){
    const i=node.enemies.length-s.pending,kind=node.enemies[i],id=s.serial++;
    const spots=[{x:240,y:165},{x:100,y:160},{x:380,y:175},{x:80,y:290},{x:400,y:300}];
    const spot=spots.filter(p=>dist(p,s.p)>150&&!(s.walls||[]).some(w=>contains(w,p,25)))[i%Math.max(1,spots.filter(p=>dist(p,s.p)>150&&!(s.walls||[]).some(w=>contains(w,p,25))).length)];

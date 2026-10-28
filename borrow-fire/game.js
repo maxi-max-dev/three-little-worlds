@@ -1,5 +1,5 @@
 import {protectPanel} from './input-gate.js?v=3.0.3';
-import {W,H,BUILDS,createState,startWave,release,upgrade,step,options,decide,NODES,AREAS} from './model.js?v=3';
+import {W,H,BUILDS,createState,startWave,release,upgrade,step,options,decide,NODES,AREAS} from './model.js?v=3.1';
 import {renderScene} from './renderer.js?v=3';
 const $=id=>document.getElementById(id),canvas=$('game'),ctx=canvas.getContext('2d');
 let selectedBuild='swarm';
