@@ -1,0 +1,16 @@
+<!doctype html><meta charset="utf-8"><title>输入隔离浏览器事件验收</title><style>button{padding:24px;margin:10px}pre{white-space:pre-wrap}</style><h1>真实浏览器 · 合成触屏事件（非实体手机）</h1><div id="panel"><button id="a">A</button><button id="b">B</button><button id="confirm">确认</button><p data-gate-status></p></div><pre id="result">运行中</pre><script type="module">
+import {protectPanel} from '../borrow-fire/input-gate.js';
+const root=document.querySelector('#panel'),a=document.querySelector('#a'),b=document.querySelector('#b'),c=document.querySelector('#confirm'),out=document.querySelector('#result');
+let selected=null,count=0,choice=null,results=[];const panel=protectPanel(root);const wait=ms=>new Promise(r=>setTimeout(r,ms));
+const open=(delay=1200)=>{selected=null;c.dataset.unavailable='true';panel.open([[a,()=>{selected='A';c.dataset.unavailable='false'}],[b,()=>{selected='B';c.dataset.unavailable='false'}],[c,()=>{count++;choice=selected;panel.close()}]],delay)};
+const pointer=(type,id,target=a)=>target.dispatchEvent(new PointerEvent(type,{bubbles:true,pointerId:id,pointerType:'touch',clientX:20,clientY:20}));
+const tap=t=>{pointer('pointerdown',1,t);pointer('pointerup',1,t);t.click()};
+const check=(name,ok)=>{results.push({name,pass:!!ok});out.textContent=JSON.stringify(results,null,2);if(!ok)throw Error(name)};
+setInterval(panel.refresh,16);
+pointer('pointerdown',1,document.body);open();await wait(5050);check('A13 持续五秒仍锁定',a.disabled);pointer('pointerup',1,a);check('A13 松手不选',selected===null);await wait(30);
+open();pointer('pointerdown',1,a);await wait(1250);pointer('pointerup',1,a);a.click();check('A14 锁定期按下/延后释放/click不排队',selected===null);await wait(30);
+pointer('pointerdown',1,document.body);pointer('pointerdown',2,document.body);open();await wait(1250);pointer('pointerup',1,a);check('A15 一指未放仍锁定',a.disabled);window.dispatchEvent(new Event('blur'));await wait(350);pointer('pointerup',2,a);check('A15 失焦恢复不选择',selected===null);tap(a);check('A15 新操作可用',selected==='A');
+const key=(type,code,repeat=false)=>a.dispatchEvent(new KeyboardEvent(type,{bubbles:true,code,repeat}));key('keydown','Space');open();await wait(1250);key('keydown','Space',true);key('keyup','Space');check('A16 旧空格与repeat不选',selected===null);await wait(30);tap(a);tap(b);check('A17 A改B尚未提交',selected==='B'&&count===0);tap(c);tap(c);c.click();check('A17 仅B提交一次',count===1&&choice==='B');
+for(const delay of [1200,3000]){open(delay);await wait(delay-150);check('A18 最短停顿 '+delay,a.disabled);await wait(200);check('A18 到期解锁 '+delay,!a.disabled);await wait(30050);check('A18 等30秒仍不提交 '+delay,count===1&&selected===null)}
+tap(b);tap(c);check('A18 等待后正常提交',count===2);out.dataset.done='true';
+</script>

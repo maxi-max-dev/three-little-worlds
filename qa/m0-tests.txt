@@ -1,0 +1,106 @@
+TAP version 13
+# Subtest: first volley can be absorbed then returned to destroy a real spawned enemy
+ok 1 - first volley can be absorbed then returned to destroy a real spawned enemy
+  ---
+  duration_ms: 2.883125
+  type: 'test'
+  ...
+# Subtest: holding forever overheats and loses ammo rather than auto-winning
+ok 2 - holding forever overheats and loses ammo rather than auto-winning
+  ---
+  duration_ms: 5.674083
+  type: 'test'
+  ...
+# Subtest: active release strategy reaches upgrades and completes five waves
+ok 3 - active release strategy reaches upgrades and completes five waves
+  ---
+  duration_ms: 7.408083
+  type: 'test'
+  ...
+# Subtest: paused or terminal state cannot advance; upgrades cannot be claimed in play
+ok 4 - paused or terminal state cannot advance; upgrades cannot be claimed in play
+  ---
+  duration_ms: 0.124333
+  type: 'test'
+  ...
+# Subtest: swarm creates separate tracking missiles; blast damages grouped enemies with one shell
+ok 5 - swarm creates separate tracking missiles; blast damages grouped enemies with one shell
+  ---
+  duration_ms: 0.434583
+  type: 'test'
+  ...
+# Subtest: arc deals damage while absorbing before any release; release chains to multiple enemies
+ok 6 - arc deals damage while absorbing before any release; release chains to multiple enemies
+  ---
+  duration_ms: 0.177542
+  type: 'test'
+  ...
+# Subtest: swarm: player strategy completes all waves using offered evolution upgrades
+ok 7 - swarm: player strategy completes all waves using offered evolution upgrades
+  ---
+  duration_ms: 9.773834
+  type: 'test'
+  ...
+# Subtest: blast: player strategy completes all waves using offered evolution upgrades
+ok 8 - blast: player strategy completes all waves using offered evolution upgrades
+  ---
+  duration_ms: 12.920125
+  type: 'test'
+  ...
+# Subtest: arc: player strategy completes all waves using offered evolution upgrades
+ok 9 - arc: player strategy completes all waves using offered evolution upgrades
+  ---
+  duration_ms: 8.313875
+  type: 'test'
+  ...
+# Subtest: unknown upgrade cannot skip a wave, and new build resets previous upgrades
+ok 10 - unknown upgrade cannot skip a wave, and new build resets previous upgrades
+  ---
+  duration_ms: 0.498084
+  type: 'test'
+  ...
+# Subtest: A13 physical hold survives generation and five seconds; release never chooses
+ok 11 - A13 physical hold survives generation and five seconds; release never chooses
+  ---
+  duration_ms: 0.70875
+  type: 'test'
+  ...
+# Subtest: A14 locked starts and stale clicks cannot queue; drag out rejected
+ok 12 - A14 locked starts and stale clicks cannot queue; drag out rejected
+  ---
+  duration_ms: 0.122291
+  type: 'test'
+  ...
+# Subtest: A15 both fingers released, suspension starts fresh
+ok 13 - A15 both fingers released, suspension starts fresh
+  ---
+  duration_ms: 0.066292
+  type: 'test'
+  ...
+# Subtest: A16 repeat and long Enter cannot cross generations
+ok 14 - A16 repeat and long Enter cannot cross generations
+  ---
+  duration_ms: 0.102791
+  type: 'test'
+  ...
+# Subtest: A17 generation invalidates saved confirmation and up is once-only
+ok 15 - A17 generation invalidates saved confirmation and up is once-only
+  ---
+  duration_ms: 0.05325
+  type: 'test'
+  ...
+# Subtest: A18 minimum delays and unlimited reading
+ok 16 - A18 minimum delays and unlimited reading
+  ---
+  duration_ms: 0.05025
+  type: 'test'
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 16
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 164.536958

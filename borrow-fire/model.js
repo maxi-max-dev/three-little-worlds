@@ -163,6 +163,6 @@ export function step(s,dt,input={}) {
   s.bullets=s.bullets.filter(b=>b.life>0&&b.x>-20&&b.x<W+20&&b.y>-20&&b.y<H+20);
   s.shots=s.shots.filter(b=>b.life>0);
   if(s.mode==='play'&&s.pending===0&&s.enemies.length===0) {
-    s.mode=s.wave>=5?'win':'upgrade';s.holding=false;s.bullets=[];s.score+=s.wave*200;
+    s.mode=s.wave>=5?'win':'upgrade';s.holding=false;s.heat=0;s.bullets=[];s.shots=[];s.score+=s.wave*200;
   }
 }
